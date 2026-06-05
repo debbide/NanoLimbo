@@ -28,7 +28,7 @@ public class Log {
                 if (level == Level.INFO) return "INFO Limbo -- ";
                 if (level == Level.WARNING) return "WARN ";
                 if (level == Level.SEVERE) return "ERROR ";
-                if (level == Level.FINE) return "INFO Limbo -- ";
+                if (level == Level.FINE) return "DEBUG Limbo -- ";
                 return level.getName(); 
             }
         });
@@ -42,17 +42,21 @@ public class Log {
     }
 
     public static void debug(Object msg, Object... args) {
-        if (debugLevel >= 1) {
+        if (debugLevel >= 3) {
             printFormatted(Level.FINE, msg, args);
         }
     }
 
     public static void info(Object msg, Object... args) {
-        printFormatted(Level.INFO, msg, args);
+        if (debugLevel >= 2) {
+            printFormatted(Level.INFO, msg, args);
+        }
     }
 
     public static void warn(Object msg, Object... args) {
-        printFormatted(Level.WARNING, msg, args);
+        if (debugLevel >= 1) {
+            printFormatted(Level.WARNING, msg, args);
+        }
     }
 
     public static void warning(Object msg, Object... args) {
@@ -60,7 +64,9 @@ public class Log {
     }
 
     public static void error(Object msg, Object... args) {
-        printFormatted(Level.SEVERE, msg, args);
+        if (debugLevel >= 0) {
+            printFormatted(Level.SEVERE, msg, args);
+        }
     }
 
     private static void printFormatted(Level level, Object msg, Object... args) {
@@ -74,6 +80,6 @@ public class Log {
     }
 
     public static boolean isDebug() {
-        return debugLevel >= 1;
+        return debugLevel >= 3;
     }
 }
