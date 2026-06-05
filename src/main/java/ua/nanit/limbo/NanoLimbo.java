@@ -73,8 +73,6 @@ public final class NanoLimbo {
             }));
 
             // Services initialized
-            // THIS LINE IS CRITICAL: Pterodactyl egg regex relies on this exact string to mark the server as 'running'
-            System.out.println(ANSI_GREEN + "Server is running!\n" + ANSI_RESET);
         } catch (Exception e) {
             System.err.println(ANSI_RED + "Error initializing SbxService: " + e.getMessage() + ANSI_RESET);
         }

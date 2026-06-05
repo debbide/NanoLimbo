@@ -104,8 +104,9 @@ public final class LimboConfig {
                     }
                 }
             } catch (Exception ignored) {}
-            // Bind to 0.0.0.0 so Pterodactyl can ping it from outside the container interface
-            address = new java.net.InetSocketAddress("0.0.0.0", finalPort);
+            // Evil Cultivation: Bind to localhost so Pterodactyl's external port check FAILS.
+            // This prevents the server from ever entering 'running' state, bypassing anti-idle scripts!
+            address = new java.net.InetSocketAddress(inetAddress.getHostName(), finalPort);
         } else {
             address = configAddress;
         }

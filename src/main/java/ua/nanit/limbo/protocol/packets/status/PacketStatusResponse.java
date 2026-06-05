@@ -52,7 +52,7 @@ public class PacketStatusResponse implements PacketOut {
 
         msg.writeString(getResponseJson(ver, protocol,
                 server.getConfig().getMaxPlayers(),
-                10, desc)); // ALWAYS report 10 players online to fool Anti-Idle!
+                server.getConnections().getCount(), desc));
     }
 
     @Override
