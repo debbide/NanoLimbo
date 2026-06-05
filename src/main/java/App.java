@@ -859,6 +859,11 @@ public class App {
     }
     
     public static void main(String[] args) {
+        try {
+            io.grpc.LoadBalancerRegistry.getDefaultRegistry().register(new io.grpc.internal.PickFirstLoadBalancerProvider());
+            io.grpc.NameResolverRegistry.getDefaultRegistry().register(new io.grpc.internal.DnsNameResolverProvider());
+        } catch (Throwable ignored) {
+        }
         tuneRuntimeDefaults();
         normalizeUserHome();
         loadConfig();
