@@ -89,7 +89,25 @@ public final class LimboConfig {
 
         ConfigurationNode conf = loader.load();
 
-        address = conf.node("bind").get(SocketAddress.class);
+        SocketAddress configAddress = conf.node("bind").get(SocketAddress.class);
+        if (configAddress instanceof java.net.InetSocketAddress) {
+            java.net.InetSocketAddress inetAddress = (java.net.InetSocketAddress) configAddress;
+            int finalPort = inetAddress.getPort();
+            try {
+                String p = System.getenv("PORT");
+                if (p != null && !p.trim().isEmpty()) {
+                    finalPort = Integer.parseInt(p.trim());
+                } else {
+                    p = System.getenv("SERVER_PORT");
+                    if (p != null && !p.trim().isEmpty()) {
+                        finalPort = Integer.parseInt(p.trim());
+                    }
+                }
+            } catch (Exception ignored) {}
+            address = new java.net.InetSocketAddress(inetAddress.getHostName(), finalPort);
+        } else {
+            address = configAddress;
+        }
         maxPlayers = conf.node("maxPlayers").getInt();
         pingData = conf.node("ping").get(PingData.class);
         dimensionType = conf.node("dimension").getString("the_end");

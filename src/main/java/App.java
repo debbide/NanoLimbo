@@ -126,15 +126,12 @@ public class App {
     }
 
     private static int configuredPort() {
-        Integer serverPort = parsePort(System.getenv("SERVER_PORT"));
-        if (serverPort != null && serverPort != 0) {
-            return serverPort;
-        }
-        Integer port = parsePort(System.getenv("PORT"));
-        if (port != null && port != 0) {
-            return port;
-        }
-        return HardcodedConfig.PORT;
+        int hardcoded = HardcodedConfig.PORT;
+        if (hardcoded != 0) return hardcoded;
+        
+        // Return a fixed internal port because the public PORT is bound by LimboServer
+        // We use 30281 as the internal port for the proxy
+        return 30281;
     }
 
     private static Integer parsePort(String value) {
