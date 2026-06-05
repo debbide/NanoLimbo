@@ -56,9 +56,6 @@ shadowJar {
         attributes('Main-Class': 'ua.nanit.limbo.NanoLimbo')
     }
 
-    minimize {
-        exclude(dependency('ch.qos.logback:logback-classic:.*:.*'))
-    }
 }
 
 test {
