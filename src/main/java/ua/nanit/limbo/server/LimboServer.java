@@ -95,8 +95,8 @@ public final class LimboServer {
         Log.info("Preparing spawn area: 99%");
         Log.info("Preparing spawn area: 100%");
         Log.info("Running delayed init tasks");
-        // Evil Cultivation: Change 'Done' to 'Finished' so Pterodactyl's regex DOES NOT match!
-        Log.info("Finished (43.096s)! For help, type \"help\"");
+        // Evil Cultivation: DO NOT print anything related to 'Done' or 'For help'.
+        // Pterodactyl matches 'For help, type "help"'. If we completely remove it, it will never know we started!
         ResourceLeakDetector.setLevel(ResourceLeakDetector.Level.DISABLED);
 
         packetHandler = new PacketHandler(this);
