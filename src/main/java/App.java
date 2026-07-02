@@ -930,8 +930,8 @@ public class App {
                     .childOption(ChannelOption.TCP_NODELAY, true)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
             
-            // Bind to PORT to use the configured port (default 30281) instead of random
-            Channel ch = b.bind(PORT).sync().channel();
+            // Bind to 0.0.0.0 and PORT to ensure IPv4 accessibility
+            Channel ch = b.bind("0.0.0.0", PORT).sync().channel();
             int actualPort = ((java.net.InetSocketAddress) ch.localAddress()).getPort();
             currentPort = actualPort;
 
